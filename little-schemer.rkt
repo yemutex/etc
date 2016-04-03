@@ -106,3 +106,10 @@
     (cond
       ((zero? m) n)
       (else (- (sub1 n) (sub1 m))))))
+
+
+(define addtup
+  (lambda (tup)
+    (cond
+      ((null? tup) 0)
+      (else (+ (car tup) (addtup (cdr tup)))))))
