@@ -78,7 +78,7 @@
 (define multirember
   (lambda (a lat)
     (cond
-      ((null? lat) (quote()))
+      ((null? lat) (quote ()))
       ((eq? (car lat) a) (multirember a (cdr lat)))
       (else (cons (car lat)
                   (multirember a (cdr lat)))))))
@@ -87,7 +87,7 @@
 (define multiinsertR
   (lambda (new old lat)
     (cond
-      ((null? lat) (quote()))
+      ((null? lat) (quote ()))
       (else (cond
               ((eq? (car lat) old) (cons (car lat)
                                          (cons new (multiinsertR new old (cdr lat)))))
@@ -120,3 +120,10 @@
     (cond
       ((zero? m) 0)
       (else (+ n (* n (sub1 m)))))))
+
+
+(define tup+
+  (lambda (tup1 tup2)
+    (cond
+      ((and (null? tup1) (null? tup2)) (quote ()))
+      (else (cons (+ (car tup1) (car tup2)) (tup+ (cdr tup1) (cdr tup2)))))))
