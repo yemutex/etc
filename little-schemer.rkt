@@ -128,3 +128,19 @@
       ((null? tup1) tup2)
       ((null? tup2) tup1)
       (else (cons (+ (car tup1) (car tup2)) (tup+ (cdr tup1) (cdr tup2)))))))
+
+
+(define >
+  (lambda (n m)
+    (cond
+      ((zero? n) #f)
+      ((zero? m) #t)
+      (else (> (sub1 n) (sub1 m))))))
+
+
+(define <
+  (lambda (n m)
+    (cond
+      ((zero? m) #f)
+      ((zero? n) #t)
+      (else (< (sub1 n) (sub1 m))))))
