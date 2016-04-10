@@ -162,6 +162,9 @@
       (else #t))))
 
 
+;; (expt 1 1) = 1
+;; (expt 2 3) = 8
+;; (expt 5 3) = 125
 (define expt
   (lambda (n m)
     (cond
@@ -183,8 +186,18 @@
       (else (add1 (length (cdr lat)))))))
 
 
+;; (pick 4 (lasagna spaghetti ravioli macaroni meatball)) = macaroni
+;; (pick 0 (a)) = N/A
 (define pick
   (lambda (n lat)
     (cond
       ((zero? (sub1 n)) (car lat))
       (else (pick (sub1 n) (cdr lat))))))
+
+
+;; (rempick 3 (hotdogs with hot mustard)) = (hotdogs with mustard)
+(define rempick
+  (lambda (n lat)
+    (cond
+      ((zero? (sub1 n) (cdr lat)))
+      (else (cons (car lat) (rempick (sub1 n) (cdr lat)))))))
