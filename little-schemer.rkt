@@ -229,3 +229,12 @@
       ((and (number? a1) (number? a2)) (= a1 a2))
       ((or (number? a1) (number? a2)) #f)
       (else (eq? a1 a2)))))
+
+
+;; Count the number of times an atom appears in a list
+(define occur
+  (lambda (a lat)
+    (cond
+      ((null? lat) 0)
+      ((eq? (car lat) a) (add1 (occur a (cdr lat))))
+      (else (occur a (cdr lat))))))
