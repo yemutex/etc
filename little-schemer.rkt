@@ -201,3 +201,13 @@
     (cond
       ((zero? (sub1 n) (cdr lat)))
       (else (cons (car lat) (rempick (sub1 n) (cdr lat)))))))
+
+
+;; Remove all the numbers from a list
+;; (5 pears 6 prunes 9 dates) -> (pears prunes dates)
+(define no-nums
+  (lambda (lat)
+    (cond
+      ((null? lat) (quote ()))
+      ((number? (car lat)) (no-nums (cdr lat)))
+      (else (cons (car lat) (no-nums (cdr lat)))))))
