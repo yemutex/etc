@@ -260,3 +260,14 @@
          ((eq? (car l) old) (cons old (cons new (insertR* new old (cdr l)))))
          (else (cons (car l) (insertR* new old (cdr l))))))
       (else (cons (insertR* new old (car l)) (insertR* new old (cdr l)))))))
+
+
+(define occur*
+  (lambda (a l)
+    (cond
+      ((null? l) 0)
+      ((atom? (car l))
+       (cond
+         ((eq? (car l) a) (add1 (occur* (cdr l))))
+         (else (occur* (cdr l)))))
+      (else (+ (occur* a (car l)) (occur* a (cdr l)))))))
