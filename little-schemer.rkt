@@ -304,3 +304,12 @@
          ((eq? a (car l)) #t)
          (else (member* a (cdr l)))))
       (else (or (member* a (car l)) (member* a (cdr l)))))))
+
+
+;; Find the leftmost atom in a non-empty list of S-expressions that does not
+;; contain the empty list
+(define leftmost
+  (lambda (l)
+    (cond
+      ((atom? (car l)) (car l))
+      (else (leftmost (car l))))))
