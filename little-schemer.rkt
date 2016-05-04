@@ -328,9 +328,9 @@
         (and (eqlist? (car l1) (car l2)) (eqlist? (cdr l1) (cdr l2)))))))
 
 
-;; equal? checks if two entities are equal
-;; eqan? checks if two atoms are equal
-;; eq? checks if two non-numeric atoms are equal
+;; equal? checks if two S-expressions are the same
+;; eqan? checks if two atoms are the same
+;; eq? checks if two non-numeric atoms are the same
 (define equal?
   (lambda (s1 s2)
     (cond
