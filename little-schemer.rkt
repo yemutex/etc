@@ -337,3 +337,13 @@
       ((and (atom? s1) (atom? s2)) (eqan? s1 s2))
       ((or (atom? s1) (atom? s2)) #f)
       (else (eqlist? s1 s2)))))
+
+
+;; Generalized rember that takes in an S-expression and a list of
+;; S-expressions instead of an atom a and a lat
+(define rember
+  (lambda (s l)
+    (cond
+      ((null? l) (quote ()))
+      ((equal? (car l) s) (cdr l))
+      (else (cons (car l) (rember s (cdr l)))))))
