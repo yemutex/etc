@@ -357,3 +357,15 @@
       ((atom? aexp) (number? aexp))
       (else (and (numbered? (car aexp))
                  (numbered? (car (cdr (cdr aexp)))))))))
+
+
+(define value
+  (lambda (nexp)
+    (cond
+      ((atom? nexp) nexp)
+      ((eq? (car (cdr nexp)) (quote +))
+       (+ (car nexp) (car (cdr (cdr nexp)))))
+      ((eq? (car (cdr nexp)) (quote *))
+       (* (car nexp) (car (cdr (cdr nexp)))))
+      ((eq? (car (cdr nexp)) (quote ^))
+       (expt (car nexp) (car (cdr (cdr nexp))))))))
