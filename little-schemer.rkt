@@ -72,7 +72,7 @@
       ((or (eq? (car lat) o1)
            (eq? (car lat) o2))
        (cons new (cdr lat)))
-      (else (cons (car lat) (subst new old (cdr lat)))))))
+      (else (cons (car lat) (subst2 new o1 o2 (cdr lat)))))))
 
 
 (define multirember
@@ -347,3 +347,13 @@
       ((null? l) (quote ()))
       ((equal? (car l) s) (cdr l))
       (else (cons (car l) (rember s (cdr l)))))))
+
+
+;; Determine whether a representation of an arithmetic expression contains
+;; only numbers besides the +, * and expt
+(define numbered?
+  (lambda (aexp)
+    (cond
+      ((atom? aexp) (number? aexp))
+      (else (and (numbered? (car aexp))
+                 (numbered? (car (cdr (cdr aexp)))))))))
