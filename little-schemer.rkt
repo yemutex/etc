@@ -364,8 +364,8 @@
     (cond
       ((atom? nexp) nexp)
       ((eq? (car (cdr nexp)) (quote +))
-       (+ (car nexp) (car (cdr (cdr nexp)))))
+       (+ (value (car nexp)) (value (car (cdr (cdr nexp))))))
       ((eq? (car (cdr nexp)) (quote *))
-       (* (car nexp) (car (cdr (cdr nexp)))))
-      ((eq? (car (cdr nexp)) (quote ^))
-       (expt (car nexp) (car (cdr (cdr nexp))))))))
+       (* (value (car nexp)) (value (car (cdr (cdr nexp))))))
+      (else
+       (expt (value (car nexp)) (value (car (cdr (cdr nexp)))))))))
