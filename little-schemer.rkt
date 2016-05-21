@@ -380,9 +380,20 @@
 
 
 ;; Make a set out of a list of atoms
+;; (makeset ('apple 'peach 'apple)) = ('peach 'apple)
 (define makeset
   (lambda (lat)
     (cond
       ((null? lat) (quote ()))
       ((member? (car lat) (cdr lat)) (makeset (cdr lat)))
       (else (cons (car lat) (makeset (cdr lat)))))))
+
+
+;; Alternative version of makeset
+;; (makeset ('apple 'peach 'apple)) = ('apple 'peach)
+(define makeset
+  (lambda (lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else (cons (car lat)
+                  (makeset (multirember (car lat) (cdr lat))))))))
