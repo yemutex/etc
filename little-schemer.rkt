@@ -369,3 +369,11 @@
        (* (value (car nexp)) (value (car (cdr (cdr nexp))))))
       (else
        (expt (value (car nexp)) (value (car (cdr (cdr nexp)))))))))
+
+
+(define set?
+  (lambda (lat)
+    (cond
+      ((null? lat) #t)
+      ((member? (car lat) (cdr lat)) #f)
+      (else (set? (cdr lat))))))
