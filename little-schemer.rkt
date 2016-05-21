@@ -377,3 +377,12 @@
       ((null? lat) #t)
       ((member? (car lat) (cdr lat)) #f)
       (else (set? (cdr lat))))))
+
+
+;; Make a set out of a list of atoms
+(define makeset
+  (lambda (lat)
+    (cond
+      ((null? lat) (quote ()))
+      ((member? (car lat) (cdr lat)) (makeset (cdr lat)))
+      (else (cons (car lat) (makeset (cdr lat)))))))
