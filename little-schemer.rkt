@@ -460,3 +460,21 @@
 (define fun?
   (lambda (rel)
     (set? (firsts rel))))
+
+
+;; Get first element of a pair
+(define first
+  (lambda (p)
+    (car p)))
+
+
+;; Get second element of a pair
+(define second
+  (lambda (p)
+    (car (cdr p))))
+
+
+;; Build a pair out of two S-expressions
+(define build
+  (lambda (s1 s2)
+    (cons s1 (cons s2 (quote ())))))
