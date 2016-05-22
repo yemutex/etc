@@ -454,3 +454,9 @@
       ((null? (cdr x)) #f)
       ((null? (cdr (cdr x))) #t)
       (else #f))))
+
+
+;; Determine if a relation is a function
+(define fun?
+  (lambda (rel)
+    (set? (firsts rel))))
