@@ -478,3 +478,12 @@
 (define build
   (lambda (s1 s2)
     (cons s1 (cons s2 (quote ())))))
+
+
+(define revrel
+  (lambda (rel)
+    (cond
+      ((null? rel) (quote ()))
+      (else (cons (build (second (car rel))
+                         (first (car rel)))
+                  (revrel (cdr rel)))))))
