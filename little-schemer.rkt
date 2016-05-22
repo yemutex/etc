@@ -487,3 +487,8 @@
       (else (cons (build (second (car rel))
                          (first (car rel)))
                   (revrel (cdr rel)))))))
+
+
+(define one-to-one?
+  (lambda (fun)
+    (fun? (revrel fun))))
