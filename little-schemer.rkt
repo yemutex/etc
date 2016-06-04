@@ -509,3 +509,12 @@
         ((null? l) (quote ()))
         ((test? (car l) a) (cdr l))
         (else (cons (car l) ((rember-f test?) a (cdr l))))))))
+
+
+(define insertL-f
+  (lambda (test?)
+    (lambda (new old lat)
+      (cond
+        ((null? lat) (quote ()))
+        ((test? (car lat) old) (cons new lat))
+        (else (cons (car lat) ((insertL-f test?) new old (cdr lat))))))))
