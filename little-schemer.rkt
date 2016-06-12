@@ -536,3 +536,11 @@
         ((null? lat) (quote ()))
         ((eq? (car lat) old) (seq new old (cdr lat)))
         (else (cons (car lat) ((insert-g seq) new old (cdr lat))))))))
+
+
+(define atom-to-function
+  (lambda (x)
+    (cond
+      ((eq? x (quote +)) +)
+      ((eq? x (quote *)) *)
+      (else expt))))
