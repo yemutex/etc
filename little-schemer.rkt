@@ -544,3 +544,12 @@
       ((eq? x (quote +)) +)
       ((eq? x (quote *)) *)
       (else expt))))
+
+
+(define value
+  (lambda (nexp)
+    (cond
+      ((atom? nexp) nexp)
+      (else ((atom-to-function (car (cdr nexp)))
+             (value (car nexp))
+             (value (car (cdr (cdr nexp)))))))))
