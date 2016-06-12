@@ -527,3 +527,12 @@
         ((null? lat) (quote ()))
         ((test? (car lat) old) (cons old (cons new (cdr lat))))
         (else (cons (car lat) ((insertR-f test?) new old (cdr lat))))))))
+
+
+(define insert-g
+  (lambda (seq)
+    (lambda (new old lat)
+      (cond
+        ((null? lat) (quote ()))
+        ((eq? (car lat) old) (seq new old (cdr lat)))
+        (else (cons (car lat) ((insert-g seq) new old (cdr lat))))))))
