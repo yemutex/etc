@@ -553,3 +553,12 @@
       (else ((atom-to-function (car (cdr nexp)))
              (value (car nexp))
              (value (car (cdr (cdr nexp)))))))))
+
+
+(define multirember-f
+  (lambda (test?)
+    (lambda (a lat)
+      (cond
+        ((nul? lat) (quote ()))
+        ((test? (car lat) a) ((multirember-f test?) a (cdr lat)))
+        (else (cons (car lat) ((multirember-f test?) a (cdr lat))))))))
