@@ -646,7 +646,9 @@
          (else
            (evens-only*&co (cdr l) (lambda (newl prod sum)
                                      (col newl prod (+ (car l) sum)))))))
-      (else ...)
-    )
-  )
-)
+      (else
+        (evens-only*&co (car l)
+          (lambda (al ap as)
+            (evens-only*&co (cdr l)
+              (lambda (dl dp ds)
+                (col (cons al dl) (x ap dp) (+ as ds))))))))))
