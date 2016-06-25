@@ -621,9 +621,32 @@
 
 (define evens-only*
   (lambda (l)
-    ((null? l) (quote ()))
-    ((atom? (car l))
-     (cond
-       ((even? (car l)) (cons (car l) (evens-only* (cdr l))))
-       (else (evens-only* (cdr lat)))))
-    (else (cons (evens-only* (car l)) (evens-only* (cdr l))))))
+    (cond
+      ((null? l) (quote ()))
+      ((atom? (car l))
+       (cond
+         ((even? (car l)) (cons (car l) (evens-only* (cdr l))))
+         (else (evens-only* (cdr lat)))))
+      (else (cons (evens-only* (car l)) (evens-only* (cdr l)))))))
+
+
+;; Build a nested list of even numbers by removing the odd ones from its
+;; argument and simultaneously multiplies the even numbers and sums up the
+;; odd numbers that occur in its argument
+(define evens-only*&co
+  (lambda (l col)
+    (cond
+      ((null? l) (col (quote ()) 1 0))
+      ((atom? (car l))
+       (cond
+         ((even? (car l))
+          (evens-only*&co (cdr l) (lambda (newl prod sum)
+                                    (col (cons (car l) newl)
+                                         (* (car l) prod) sum))))
+         (else
+           (evens-only*&co (cdr l) (lambda (newl prod sum)
+                                     (col newl prod (+ (car l) sum)))))))
+      (else ...)
+    )
+  )
+)
