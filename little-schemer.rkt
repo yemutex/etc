@@ -617,3 +617,13 @@
         (multiinsertLR&co new oldL oldR (cdr lat)
                           (lambda (newlat left right)
                             (col (cons (car lat) newlat) left right)))))))
+
+
+(define evens-only*
+  (lambda (l)
+    ((null? l) (quote ()))
+    ((atom? (car l))
+     (cond
+       ((even? (car l)) (cons (car l) (evens-only* (cdr l))))
+       (else (evens-only* (cdr lat)))))
+    (else (cons (evens-only* (car l)) (evens-only* (cdr l))))))
