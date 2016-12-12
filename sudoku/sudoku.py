@@ -11,6 +11,4 @@ unit_list = ([cross(rows, c) for c in cols] +
              [cross(rs, cs) for rs in (
                  'ABC', 'DEF', 'GHI') for cs in ('123', '456', '789')])
 units = dict((s, [u for u in unit_list if s in u]) for s in squares)
-import pdb
-pdb.set_trace()
 peers = dict((s, set(sum(units[s], [])) - set([s])) for s in squares)
