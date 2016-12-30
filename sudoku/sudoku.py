@@ -36,6 +36,16 @@ def grid_values(grid):
     return dict(zip(squares, chars))
 
 
+def assign(values, s, d):
+    '''Eliminate all the other values (except d) from values[s] and propagate.
+    Return values, except return False if a contradiction is detected.'''
+    other_values = values[s].replace(d, '')
+    if all(eliminate(values, s, d2) for d2 in other_values):
+        return values
+    else:
+        return False
+
+
 # Unit tests
 def test():
     assert len(squares) == 81
