@@ -65,7 +65,7 @@ def eliminate(values, s, d):
     # 2) If a unit u is reduced to only one place for a value d, then
     # put it there
     for u in units[s]:
-        dplaces = [sq for sq in u if d in values[s]]
+        dplaces = [sq for sq in u if d in values[sq]]
         if len(dplaces) == 0:
             # Contradiction: no place for this value
             return False
@@ -74,6 +74,18 @@ def eliminate(values, s, d):
             if not assign(values, dplaces[0], d):
                 return False
     return values
+
+
+def display(values):
+    '''Display these values as a 2-D grid.'''
+    width = 1 + max(len(values[s]) for s in squares)
+    line = '+'.join(['-' * (width * 3)] * 3)
+    for r in rows:
+        print ''.join(values[r+c].center(width) + ('|' if c in '36' else '')
+                      for c in cols)
+        if r in 'CF':
+            print line
+    print
 
 
 # Unit tests
