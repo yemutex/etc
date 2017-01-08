@@ -76,6 +76,30 @@ def eliminate(values, s, d):
     return values
 
 
+def solve(grid):
+    return search(parse_grid(grid))
+
+
+def search(values):
+    '''Use DFS and propagation, try all possible values.'''
+    if values is False:
+        # Failed earlier
+        return False
+    elif all(len(values[s]) == 1 for s in squares):
+        # Solved
+        return values
+    n, s = min((len(values[s]), s) for s in squares if len(values[s]) > 1)
+    return some(search(assign(values.copy(), s, d)) for d in values[s])
+
+
+def some(seq):
+    '''Return some element of seq that is true.'''
+    for e in seq:
+        if e:
+            return e
+    return False
+
+
 def display(values):
     '''Display these values as a 2-D grid.'''
     width = 1 + max(len(values[s]) for s in squares)
