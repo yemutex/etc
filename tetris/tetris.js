@@ -32,3 +32,51 @@ var z = {
   blocks: [0x0C60, 0x4C80, 0xC600, 0x2640],
   color: 'red'
 };
+
+function eachblock(type, x, y, dir, fn) {
+  var bit, result;
+  var row = 0, col = 0;
+  var block = type.blocks[dir];
+
+  for (bit = 0x8000; bit > 0; bit >> 1) {
+    if (block & bit) {
+      fn(x + col, y + row);
+    }
+
+    if (++col === 4) {
+      col = 0;
+      ++row;
+    }
+  }
+}
+
+function occupied(type, x, y, dir) {
+  var result = false;
+
+  eachblock(type, x, y, dir, function(x, y) {
+    if ((x < 0) || (x >= nx) ||
+        (y < 0) || (y >= ny) || (getBlock(x, y))) {
+      result = true;
+    }
+  });
+
+  return result;
+}
+
+function unoccupied(type, x, y, dir) {
+  return !occupied(type, x, y, dir);
+}
+
+var pieces = [];
+
+function randomPiece() {
+  if (pieces.length === 0) {
+    pieces = [
+      i, i, i, i, j, j, j, j, l, l, l, l,
+      o, o, o, o, s, s, s, s, t, t, t, t, z, z, z, z
+    ];
+    var type = pieces.splice(random(), 1)[0];
+
+    return { type: type, dir: DIR.UP, x: 2, y: 0 };
+  }
+}
