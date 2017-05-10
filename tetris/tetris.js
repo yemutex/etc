@@ -35,11 +35,12 @@ var z = {
 
 function eachblock(type, x, y, dir, fn) {
   var bit, result;
-  var row = 0, col = 0;
-  var block = type.blocks[dir];
+  var row = 0;
+  var col = 0;
+  var blocks = type.blocks[dir];
 
-  for (bit = 0x8000; bit > 0; bit >> 1) {
-    if (block & bit) {
+  for (bit = 0x8000; bit > 0; bit = bit >> 1) {
+    if (blocks & bit) {
       fn(x + col, y + row);
     }
 
