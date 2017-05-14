@@ -5,12 +5,20 @@
 #define OUT 0
 
 void display(int length[]) {
-        printf("length =");
+        int i, j;
 
-        int i;
-        for (i = 0; i < MAX_LENGTH+1; i++) {
-                printf(" %d", length[i]);
+        for (i = 1; i < 16; i++) {
+                if (i < 10) {
+                        printf(" %d | ", i);
+                } else {
+                        printf("%d | ", i);
+                }
+                for (j = 0; j < length[i]; j++) {
+                        printf("=");
+                }
+                printf("\n");
         }
+
         printf("\n");
 }
 
