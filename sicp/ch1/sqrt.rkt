@@ -17,3 +17,5 @@
 
 (define (sqrt x)
   (sqrt-iter 1.0 x))
+
+; (println (sqrt 0.0004))
