@@ -33,13 +33,12 @@ var z = {
   color: 'red'
 };
 
-function eachblock(type, x, y, dir, fn) {
-  var bit, result;
+function eachblock(type, x, y, direction, fn) {
   var row = 0;
   var col = 0;
-  var blocks = type.blocks[dir];
+  var blocks = type.blocks[direction];
 
-  for (bit = 0x8000; bit > 0; bit = bit >> 1) {
+  for (var bit = 0x8000; bit > 0; bit = bit >> 1) {
     if (blocks & bit) {
       fn(x + col, y + row);
     }
@@ -51,10 +50,11 @@ function eachblock(type, x, y, dir, fn) {
   }
 }
 
-function occupied(type, x, y, dir) {
+function occupied(type, x, y, direction) {
   var result = false;
 
-  eachblock(type, x, y, dir, function(x, y) {
+  // getBlock() indicates if that position on the tetris grid is occupied
+  eachblock(type, x, y, direction, function(x, y) {
     if ((x < 0) || (x >= nx) ||
         (y < 0) || (y >= ny) || (getBlock(x, y))) {
       result = true;
@@ -64,8 +64,8 @@ function occupied(type, x, y, dir) {
   return result;
 }
 
-function unoccupied(type, x, y, dir) {
-  return !occupied(type, x, y, dir);
+function unoccupied(type, x, y, direction) {
+  return !occupied(type, x, y, direction);
 }
 
 var pieces = [];
@@ -73,11 +73,12 @@ var pieces = [];
 function randomPiece() {
   if (pieces.length === 0) {
     pieces = [
-      i, i, i, i, j, j, j, j, l, l, l, l,
-      o, o, o, o, s, s, s, s, t, t, t, t, z, z, z, z
+      i, i, i, i, j, j, j, j, l, l, l, l, o, o, o, o,
+      s, s, s, s, t, t, t, t, z, z, z, z
     ];
-    var type = pieces.splice(random(), 1)[0];
-
-    return { type: type, dir: DIR.UP, x: 2, y: 0 };
   }
+
+  // remove a single piece
+  var type = pieces.splice(Math.random(0, pieces.length-1), 1)[0];
+  return { type: type, direction: DIRECTION.UP, x: 2, y: 0 };
 }
