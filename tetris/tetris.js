@@ -1,37 +1,65 @@
-var i = {
+const KEY = {
+  ESC:    27,
+  SPACE:  32,
+  LEFT:   37,
+  UP:     38,
+  RIGHT:  39,
+  DOWN:   40
+};
+
+const DIR = {
+  UP:     0,
+  RIGHT:  1,
+  DOWN:   2,
+  LEFT:   3,
+  MIN:    0,
+  MAX:    3
+};
+
+const i = {
   blocks: [0x0F00, 0x2222, 0x00F0, 0x4444],
   color: 'cyan'
 };
 
-var j = {
+const j = {
   blocks: [0x44C0, 0x8E00, 0x6440, 0x0E20],
   color: 'blue'
 };
 
-var l = {
+const l = {
   blocks: [0x4460, 0x0E80, 0xC440, 0x2E00],
   color: 'orange'
 };
 
-var o = {
+const o = {
   blocks: [0xCC00, 0xCC00, 0xCC00, 0xCC00],
   color: 'yellow'
 };
 
-var s = {
+const s = {
   blocks: [0x06C0, 0x8C40, 0x6C00, 0x4620],
   color: 'green'
 };
 
-var t = {
+const t = {
   blocks: [0x0E40, 0x4C40, 0x4E00, 0x4640],
   color: 'purple'
 };
 
-var z = {
+const z = {
   blocks: [0x0C60, 0x4C80, 0xC600, 0x2640],
   color: 'red'
 };
+
+const stats = new Stats();
+const canvas = get('canvas');
+const ctx = canvas.getContext('2d');
+const ucanvas = get('upcoming');
+const uctx = ucanvas.getContext('2d');
+const speed = { start: 0.6, decrement: 0.005, min: 0.1 };
+const nx = 10; // width of tetris court (in blocks)
+const ny = 20; // height of tetris court (in blocks)
+const nu = 5;  // width/height of upcoming preview (in blocks)
 
 function eachblock(type, x, y, direction, fn) {
   var row = 0;
