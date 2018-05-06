@@ -1,4 +1,5 @@
 import * as util from './util';
+import draw from './render';
 
 
 var dx;               // pixel size of a single tetris block
@@ -48,9 +49,9 @@ function onKeydown(e) {
   }
 }
 
-function move(piece, direction) {
-  var futureX = piece.x;
-  var futureY = piece.y;
+function move(direction) {
+  var futureX = currPiece.x;
+  var futureY = currPiece.y;
 
   switch(direction) {
     case DIRECTION.right:
@@ -64,9 +65,9 @@ function move(piece, direction) {
       break;
   }
 
-  if (util.unoccupied(piece.type, futureX, futureY, piece.direction)) {
-    piece.x = futureX;
-    piece.y = futureY;
+  if (util.unoccupied(currPiece.type, futureX, futureY, currPiece.direction)) {
+    currPiece.x = futureX;
+    currPiece.y = futureY;
     invalidate();
     return true;
   } else {
@@ -74,11 +75,11 @@ function move(piece, direction) {
   }
 }
 
-function rotate(piece) {
-  var newDirection = (++piece.direction) % 4;
+function rotate() {
+  var newDirection = (++currPiece.direction) % 4;
 
-  if (util.unoccupied(piece.type, piece.x, piece.y, newDirection)) {
-    piece.direction = newDirection;
+  if (util.unoccupied(currPiece.type, currPiece.x, currPiece.y, newDirection)) {
+    currPiece.direction = newDirection;
     invalidate();
   }
 }
@@ -89,8 +90,8 @@ function drop() {
     removeLines();
     setCurrPiece(nextPiece);
     setNextPiece(util.randomPiece());
-    clearActions();
-    if (util.occupied(piece.type, piece.x, piece.y, piece.direction)) {
+    actions = [];
+    if (util.occupied(currPiece.type, currPiece.x, currPiece.y, currPiece.direction)) {
       playing = false;
     }
   }
@@ -103,19 +104,21 @@ function drop() {
   }
 
   function removeLines() {
+    function removeLine() {
+    }
   }
 }
 
 function handleUserInput(action) {
   switch(action) {
     case DIRECTION.left:
-      move(currPiece, DIRECTION.left);
+      move(DIRECTION.left);
       break;
     case DIRECTION.up:
-      rotate(currPiece);
+      rotate();
       break;
     case DIRECTION.right:
-      move(currPiece, DIRECTION.right);
+      move(DIRECTION.right);
       break;
     case DIRECTION.down:
       drop();
