@@ -1,4 +1,5 @@
 .DS_Store
+.jshintrc
 *.dSYM
 *.pyc
 *.out
